@@ -1,0 +1,27 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.box_check_update = false
+
+  config.vm.define "machloujS" do |server|
+    server.vm.hostname = "machloujS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "machloujS"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    server.vm.provision "shell", path: "scripts/server.sh", privileged: true, run: 'always'  
+  end
+
+  config.vm.define "machloujSW" do |server_worker|
+    worker.vm.hostname = "machloujSW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+    worker.vm.provider "virtualbox" do |vb|
+      vb.name = "machloujSW"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    server.vm.provision "shell", path: "scripts/worker.sh", privileged: true, run: 'always'
+  end
+end
