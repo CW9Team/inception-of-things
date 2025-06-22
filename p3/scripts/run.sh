@@ -2,21 +2,21 @@
 # Main deployment script - sets up K3D cluster and deploys application with ArgoCD
 
 echo "🚀 Setting up K3D cluster with ArgoCD..."
-sleep 40
+sleep 15
 
 sh setup-k3d-with-argocd.sh
 
 echo "📦 Deploying application..."
-sleep 40
+sleep 15
 
-kubectl apply -f ../confs/deployment.yaml
+kubectl apply -f ../confs/deployment.yaml --wait
 
 echo "⚙️  Configuring ArgoCD application..."
-sleep 40
-kubectl apply -f ../confs/argo.yaml
+sleep 15
+kubectl apply -f ../confs/argo.yaml --wait
 
 echo "🌐 Exposing service..."
-sleep 40
-kubectl apply -f ../confs/service.yaml
+sleep 15
+kubectl apply -f ../confs/service.yaml --wait
 
 
